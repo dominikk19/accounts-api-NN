@@ -11,4 +11,6 @@ public interface TestData {
     String FIRSTNAME = "Janek";
     String SURNAME = "Kowal";
     BigDecimal OPENING_BALANCE_TEN = BigDecimal.TEN;
+    Account account = AccountFactory.openNewAccountForClient(FIRSTNAME, SURNAME, OPENING_BALANCE_TEN);
+
 }

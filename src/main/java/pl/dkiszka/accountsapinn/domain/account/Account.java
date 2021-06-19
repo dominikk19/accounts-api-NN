@@ -38,4 +38,8 @@ public class Account {
     public UUID getUuid() {
         return UUID.fromString(uuid.toString());
     }
+
+    public void exchangeBalance(ExchangeType exchangeType, BigDecimal rate){
+        balance.convert(exchangeType,rate);
+    }
 }

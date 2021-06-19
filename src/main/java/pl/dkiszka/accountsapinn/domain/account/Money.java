@@ -30,4 +30,12 @@ class Money {
     private Currency currency;
     @Column(nullable = false)
     private BigDecimal balance;
+
+    void convert(ExchangeType exchangeType, BigDecimal rate) {
+        if (currency.convertDirection.equals(exchangeType)) {
+            this.balance = currency.function.apply(balance, rate);
+            this.currency = currency.newCurrency();
+        }
+    }
+
 }

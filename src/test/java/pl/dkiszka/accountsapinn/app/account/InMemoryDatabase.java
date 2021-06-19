@@ -3,6 +3,7 @@ package pl.dkiszka.accountsapinn.app.account;
 import pl.dkiszka.accountsapinn.domain.account.Account;
 import pl.dkiszka.accountsapinn.domain.account.AccountRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,4 +25,10 @@ public class InMemoryDatabase implements AccountRepository {
         return account;
     }
 
+    @Override
+    public Optional<Account> findByUuid(UUID uuid) {
+        return Optional.of(uuid)
+                .filter(memoryDb::containsKey)
+                .map(memoryDb::get);
+    }
 }

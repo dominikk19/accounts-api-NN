@@ -10,7 +10,7 @@ import pl.dkiszka.accountsapinn.domain.account.AccountRepository;
 public class TestAccountServiceFactory {
 
     public static AccountService creatAccountService(AccountRepository accountRepository) {
-        return new AccountServiceImpl(accountRepository);
+        return new AccountServiceImpl(accountRepository, null); //todo
     }
 
 }

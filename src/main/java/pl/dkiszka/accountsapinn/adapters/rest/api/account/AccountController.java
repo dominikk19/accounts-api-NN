@@ -3,14 +3,20 @@ package pl.dkiszka.accountsapinn.adapters.rest.api.account;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.dkiszka.accountsapinn.app.account.AccountService;
+import pl.dkiszka.accountsapinn.domain.account.ExchangeType;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 /**
  * @author Dominik Kiszka {dominikk19}
@@ -32,5 +38,11 @@ class AccountController {
                 .buildAndExpand(account.getUuid())
                 .toUri();
         return ResponseEntity.created(uriLocation).build();
+    }
+
+    @PatchMapping("/{uuid}")
+    ResponseEntity<BaseResponseDto> exchangeBalance(@NotNull @PathVariable UUID uuid, @Valid @RequestParam ExchangeType type) {
+        var message = accountService.startBalanceExchange(uuid, type);
+        return ResponseEntity.ok(new BaseResponseDto(message));
     }
 }
