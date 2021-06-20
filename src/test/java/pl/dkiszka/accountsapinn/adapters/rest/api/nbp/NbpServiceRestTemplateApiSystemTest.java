@@ -28,9 +28,7 @@ class NbpServiceRestTemplateApiSystemTest {
     private static final String NBP_URL = "http://api.nbp.pl/api/exchangerates/rates/a/usd";
     private static final String EXPECTED_RATE = "3.8198";
 
-    private RestTemplate restTemplate;
-
-    private NbpService nbpService = new NbpServiceRestTemplateApi(NBP_URL, restTemplate);
+    private NbpService nbpService;
 
     @Test
     void when_connection_ok_then_should_be_return_rate_3_8198() {

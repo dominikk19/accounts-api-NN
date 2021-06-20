@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import pl.dkiszka.accountsapinn.adapters.rest.api.nbp.NbpServiceException;
 import pl.dkiszka.accountsapinn.app.account.AccountServiceException;
 import pl.dkiszka.accountsapinn.domain.account.AccountCreationException;
 import pl.dkiszka.accountsapinn.query.account.AccountNotFoundException;
@@ -45,5 +46,10 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {AccountNotFoundException.class})
     ResponseEntity<ExceptionMessage> accountNotFoundException(AccountNotFoundException ex) {
         return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {NbpServiceException.class})
+    ResponseEntity<ExceptionMessage> nbpServiceException(NbpServiceException ex) {
+        return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.SERVICE_UNAVAILABLE);
     }
 }
