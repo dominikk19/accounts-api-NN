@@ -9,5 +9,8 @@ matrix:
       - rm "${JAVA_HOME}/lib/security/cacerts"
       - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
 
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
   - mvn clean install
