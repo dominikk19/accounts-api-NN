@@ -13,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pl.dkiszka.accountsapinn.app.account.AccountServiceException;
 import pl.dkiszka.accountsapinn.domain.account.AccountCreationException;
+import pl.dkiszka.accountsapinn.query.account.AccountNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,5 +40,10 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
             AccountCreationException.class})
     ResponseEntity<ExceptionMessage> accountServiceException(AccountServiceException ex) {
         return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {AccountNotFoundException.class})
+    ResponseEntity<ExceptionMessage> accountNotFoundException(AccountNotFoundException ex) {
+        return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.NOT_FOUND);
     }
 }

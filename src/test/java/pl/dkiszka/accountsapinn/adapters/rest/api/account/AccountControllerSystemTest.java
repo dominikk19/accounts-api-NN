@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @Tag("SystemTest")
 @ExtendWith(SpringExtension.class)
-@Import(InMemoryDatabaseTestConfiguration.class)
+@Import(AccountServiceWithInMemoryDbTestConfiguration.class)
 @WebMvcTest(AccountController.class)
 class AccountControllerSystemTest {
 

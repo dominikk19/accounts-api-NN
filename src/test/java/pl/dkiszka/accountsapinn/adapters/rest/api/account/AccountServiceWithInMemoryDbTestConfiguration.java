@@ -13,7 +13,7 @@ import pl.dkiszka.accountsapinn.domain.account.AccountRepository;
  * @date 19.06.2021
  */
 @TestConfiguration
-class InMemoryDatabaseTestConfiguration {
+class AccountServiceWithInMemoryDbTestConfiguration {
 
     @Bean
     AccountService accountService() {
