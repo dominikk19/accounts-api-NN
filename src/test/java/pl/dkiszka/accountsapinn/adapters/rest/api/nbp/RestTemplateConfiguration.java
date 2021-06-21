@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
  * @date 20.06.2021
  */
 @TestConfiguration
-class RestTemplateConfiguration {
+public class RestTemplateConfiguration {
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.rootUri("http://api.nbp.pl/api/exchangerates/rates/a/usd")

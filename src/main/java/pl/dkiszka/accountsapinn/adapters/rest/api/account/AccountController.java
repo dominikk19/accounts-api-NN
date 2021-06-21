@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,4 +46,11 @@ class AccountController {
         var message = accountService.startBalanceExchange(uuid, type);
         return ResponseEntity.ok(new BaseResponseDto(message));
     }
+
+    @PutMapping("/{uuid}/exchange-amount")
+    ResponseEntity<BaseResponseDto> exchangeBalance(@NotNull @PathVariable UUID uuid, @Valid @RequestBody ExchangeAmountCommand command) {
+        var message = accountService.exchangeAmount(uuid, command.getExchangeType(), command.getAmount());
+        return ResponseEntity.ok(new BaseResponseDto(message));
+    }
+
 }

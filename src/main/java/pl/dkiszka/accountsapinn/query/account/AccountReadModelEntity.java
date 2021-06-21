@@ -1,12 +1,9 @@
 package pl.dkiszka.accountsapinn.query.account;
 
-import pl.dkiszka.accountsapinn.domain.account.Currency;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,15 +18,15 @@ class AccountReadModelEntity {
     @Id
     private UUID uuid;
 
-    private String currency;
+    private String firstname;
 
-    private BigDecimal balance;
+    private String surname;
 
-    AccountDto toAccountDtoWithMultiCurrency(BigDecimal rate) {
-        return AccountDto.create(uuid, currency, balance, rate);
-    }
+    private BigDecimal balanceInPln;
 
-    AccountDto toAccountDtoWithSingleCurrency() {
-        return AccountDto.create(uuid, currency, balance);
+    private BigDecimal balanceInUsd;
+
+    AccountDto toAccountDto() {
+        return AccountDto.create(uuid, firstname, surname, balanceInPln, balanceInUsd);
     }
 }

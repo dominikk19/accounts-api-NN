@@ -20,8 +20,7 @@ class AccountFactoryTest {
 
         AccountAssertions.assertThat(actual)
                 .hasContainUuidCompatibleWithPattern()
-                .hasBalanceEqualsTo(TestData.OPENING_BALANCE_TEN)
-                .hasCurrencyEqualsTo(Currency.PLN)
+                .hasBalanceInPlnEqualsTo(TestData.OPENING_BALANCE_TEN)
                 .hasFirstnameEqualsTo(TestData.FIRSTNAME)
                 .hasSurnameEqualsTo(TestData.SURNAME);
     }

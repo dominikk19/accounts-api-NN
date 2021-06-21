@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
@@ -26,13 +26,14 @@ class AccountDtoAssertions {
         return this;
     }
 
-    public AccountDtoAssertions hasContainsAll(List<AccountDto.CurrencyBalance> expected) {
-        Assertions.assertThat(actual.getCurrenciesBalance().containsAll(expected)).isTrue();
+    public AccountDtoAssertions hasBalanceInPlnEqualsTo(BigDecimal expected) {
+        Assertions.assertThat(actual.getBalanceInPln()).isEqualTo(expected);
         return this;
     }
 
-    public AccountDtoAssertions countOfCurrencyBalance(int expected) {
-        Assertions.assertThat(actual.getCurrenciesBalance()).size().isEqualTo(expected);
+    public AccountDtoAssertions hasBalanceInUsdEqualsTo(BigDecimal expected) {
+        Assertions.assertThat(actual.getBalanceInUsd()).isEqualTo(expected);
         return this;
     }
+
 }

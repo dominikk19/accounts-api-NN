@@ -39,7 +39,13 @@ public class Account {
         return UUID.fromString(uuid.toString());
     }
 
-    public void exchangeBalance(ExchangeType exchangeType, BigDecimal rate){
-        balance.convert(exchangeType,rate);
+    public Account exchangeBalance(ExchangeType exchangeType, BigDecimal rate) {
+        balance.convert(exchangeType, rate);
+        return this;
+    }
+
+    public Account exchangeAmount(ExchangeType exchangeType, BigDecimal amount, BigDecimal rate) {
+        balance.convert(exchangeType, amount, rate);
+        return this;
     }
 }

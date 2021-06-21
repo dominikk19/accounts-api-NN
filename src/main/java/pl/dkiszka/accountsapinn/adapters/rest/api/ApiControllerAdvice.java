@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import pl.dkiszka.accountsapinn.adapters.rest.api.nbp.NbpServiceException;
 import pl.dkiszka.accountsapinn.app.account.AccountServiceException;
 import pl.dkiszka.accountsapinn.domain.account.AccountCreationException;
+import pl.dkiszka.accountsapinn.domain.account.AccountExchangeAmountException;
 import pl.dkiszka.accountsapinn.query.account.AccountNotFoundException;
 
 import java.util.List;
@@ -51,5 +52,10 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {NbpServiceException.class})
     ResponseEntity<ExceptionMessage> nbpServiceException(NbpServiceException ex) {
         return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(value = {AccountExchangeAmountException.class})
+    ResponseEntity<ExceptionMessage> accountExchangeAmountException(AccountExchangeAmountException ex) {
+        return new ResponseEntity(ExceptionMessage.of(List.of(ex.getLocalizedMessage())), HttpStatus.NOT_ACCEPTABLE);
     }
 }

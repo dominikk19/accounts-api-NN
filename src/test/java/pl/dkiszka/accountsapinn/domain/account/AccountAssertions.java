@@ -29,22 +29,22 @@ public class AccountAssertions {
         return this;
     }
 
-    public AccountAssertions hasBalanceEqualsTo(BigDecimal expected) {
+    public AccountAssertions hasBalanceInPlnEqualsTo(BigDecimal expected) {
         Assertions.assertThat(actual)
                 .extracting("balance")
                 .satisfies(balance -> {
                     var actualMoney = (Money) balance;
-                    Assertions.assertThat(actualMoney).hasFieldOrPropertyWithValue("balance", expected);
+                    Assertions.assertThat(actualMoney).hasFieldOrPropertyWithValue("balanceInPln", expected);
                 });
         return this;
     }
 
-    public AccountAssertions hasCurrencyEqualsTo(Currency expected) {
+    public AccountAssertions hasBalanceInUsdEqualsTo(BigDecimal expected) {
         Assertions.assertThat(actual)
                 .extracting("balance")
                 .satisfies(balance -> {
                     var actualMoney = (Money) balance;
-                    Assertions.assertThat(actualMoney).hasFieldOrPropertyWithValue("currency", expected);
+                    Assertions.assertThat(actualMoney).hasFieldOrPropertyWithValue("balanceInUsd", expected);
                 });
         return this;
     }

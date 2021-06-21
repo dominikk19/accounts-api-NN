@@ -18,4 +18,6 @@ public interface AccountService {
     String startBalanceExchange(UUID uuid, ExchangeType type);
 
     void balanceExchange(AccountExchangeRateCommand command);
+
+    String exchangeAmount(UUID uuid, ExchangeType exchangeType , BigDecimal amount);
 }

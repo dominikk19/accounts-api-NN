@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -26,40 +23,19 @@ import java.util.UUID;
 @EqualsAndHashCode
 class AccountDto {
 
-    static AccountDto create(UUID uuid, String actualCurrency, BigDecimal actualBalance, BigDecimal rate) {
-        var actualCurrencyBalance = new CurrencyBalance(actualCurrency, actualBalance);
-        var exchangedBalance = Optional.of(actualCurrency)
-                .filter(val -> val.equals("PLN"))
-                .map(ac -> CurrencyBalance.divide(actualBalance, rate))
-                .orElseGet(() -> CurrencyBalance.multiple(actualBalance, rate));
-        return new AccountDto(uuid, List.of(actualCurrencyBalance, exchangedBalance));
-    }
-
-    static AccountDto create(UUID uuid, String actualCurrency, BigDecimal actualBalance) {
-        return new AccountDto(uuid, List.of(new CurrencyBalance(actualCurrency, actualBalance)));
+    static AccountDto create(UUID uuid, String firstname, String surname, BigDecimal balanceInPln, BigDecimal balanceInUsd) {
+        return new AccountDto(uuid, firstname, surname, balanceInPln, balanceInUsd);
     }
 
     private final UUID uuid;
+    private final String firstname;
+    private final String surname;
 
-    private final List<CurrencyBalance> currenciesBalance;
+    @JsonSerialize(using = MoneySerializer.class)
+    private final BigDecimal balanceInPln;
 
-    @RequiredArgsConstructor
-    @Getter
-    @EqualsAndHashCode
-    static class CurrencyBalance {
-
-        static CurrencyBalance multiple(BigDecimal actualBalance, BigDecimal rate) {
-            return new CurrencyBalance("PLN", actualBalance.multiply(rate, MathContext.DECIMAL32));
-        }
-
-        static CurrencyBalance divide(BigDecimal actualBalance, BigDecimal rate) {
-            return new CurrencyBalance("USD", actualBalance.divide(rate, MathContext.DECIMAL32));
-        }
-
-        private final String currency;
-        @JsonSerialize(using = MoneySerializer.class)
-        private final BigDecimal balance;
-    }
+    @JsonSerialize(using = MoneySerializer.class)
+    private final BigDecimal balanceInUsd;
 
 
     private static class MoneySerializer extends JsonSerializer<BigDecimal> {

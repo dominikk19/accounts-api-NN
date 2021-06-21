@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  * @date 20.06.2021
  */
 @TestConfiguration
-class H2DatabaseQueryTestConfiguration {
+public class H2DatabaseQueryTestConfiguration {
 
 
     @Bean
